@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\targets\Stride.props" />
+  
+  <PropertyGroup>
+    <TargetFrameworks>$(StrideEditorTargetFramework)</TargetFrameworks>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpGLTF.Core" Version="1.0.0-alpha0023" />
+    <PackageReference Include="SharpGLTF.Toolkit" Version="1.0.0-alpha0023" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Stride.Core.Mathematics\Stride.Core.Mathematics.csproj" />
+    <ProjectReference Include="..\..\engine\Stride.Assets\Stride.Assets.csproj" />
+    <ProjectReference Include="..\..\engine\Stride.Engine\Stride.Engine.csproj" />
+    <ProjectReference Include="..\..\engine\Stride.Games\Stride.Games.csproj" />
+    <ProjectReference Include="..\..\engine\Stride.Graphics\Stride.Graphics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Stride.Importer.Common">
+      <HintPath>..\Stride.Importer.Common\bin\net5.0-windows\x64\Debug\Stride.Importer.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+  <Import Project="$(StrideSdkTargets)" />
+
+</Project>

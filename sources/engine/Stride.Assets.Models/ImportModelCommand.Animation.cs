@@ -140,13 +140,13 @@ namespace Stride.Assets.Models
                             foreach (var node in nodesToMerge)
                             {
                                 if (node.Item3 != null)
-                                foreach (var curve in node.Item3.Clip.Curves)
-                                {
-                                    foreach (CompressedTimeSpan time in curve.Keys)
+                                    foreach (var curve in node.Item3.Clip.Curves)
                                     {
-                                        animationKeysSet.Add(time);
+                                        foreach (CompressedTimeSpan time in curve.Keys)
+                                        {
+                                            animationKeysSet.Add(time);
+                                        }
                                     }
-                                }
                             }
 
                             // Sort key times
@@ -170,7 +170,7 @@ namespace Stride.Assets.Models
                                 foreach (var node in nodesToMerge)
                                 {
                                     // Needs to be an array in order for it to be modified by the UpdateEngine, otherwise it would get passed by value
-                                    var modelNodeDefinitions = new ModelNodeDefinition[1] {node.Item1};
+                                    var modelNodeDefinitions = new ModelNodeDefinition[1] { node.Item1 };
 
                                     if (node.Item2 != null && node.Item3 != null)
                                     {

@@ -28,6 +28,8 @@ namespace Stride.Assets.Models
 
         public static ImportModelCommand Create(string extension)
         {
+            if (ImportGltfCommand.IsSupportingExtensions(extension))
+                return new ImportGltfCommand();
             if (ImportFbxCommand.IsSupportingExtensions(extension))
                 return new ImportFbxCommand();
             if (ImportAssimpCommand.IsSupportingExtensions(extension))
@@ -90,8 +92,17 @@ namespace Stride.Assets.Models
                     commandContext.Logger.Error($"Failed to import file {ContextAsString}.");
                     return ResultStatus.Failed;
                 }
+                if (exportedObject is Dictionary<string, AnimationClip>)
+                {
+                    var exportedObjects = exportedObject as Dictionary<string, AnimationClip>;
+                    foreach (var obj in exportedObjects)
+                        assetManager.Save(obj.Key, obj.Value);
+                }
+                else
+                {
+                    assetManager.Save(Location, exportedObject);
+                }
 
-                assetManager.Save(Location, exportedObject);
 
                 commandContext.Logger.Verbose($"The {ContextAsString} has been successfully imported.");
 
@@ -130,7 +141,7 @@ namespace Stride.Assets.Models
 
             return result;
         }
-        
+
         protected abstract Model LoadModel(ICommandContext commandContext, ContentManager contentManager);
 
         protected abstract Dictionary<string, AnimationClip> LoadAnimation(ICommandContext commandContext, ContentManager contentManager, out TimeSpan duration);
@@ -172,7 +183,7 @@ namespace Stride.Assets.Models
                 return false;
             return IsSubsetOf(localParams, newMesh.Parameters) && IsSubsetOf(newMesh.Parameters, localParams);
         }
-        
+
         /// <summary>
         /// Compares the shadow options between the two meshes.
         /// </summary>

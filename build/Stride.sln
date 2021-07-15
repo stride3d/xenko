@@ -335,6 +335,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stride.VisualStudio.Command
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stride.Engine.NoAssets.Tests.Windows", "..\sources\engine\Stride.Engine.NoAssets.Tests\Stride.Engine.NoAssets.Tests.Windows.csproj", "{1C94168A-3C0D-4C6B-883B-91627D2EF3A1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stride.Importer.Gltf", "..\sources\tools\Stride.Importer.Gltf\Stride.Importer.Gltf.csproj", "{69CA1F59-5735-403C-8009-2CE282C72DE6}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\sources\shared\Stride.NuGetResolver\Stride.NuGetResolver.projitems*{00b72ed7-00e9-47f7-868d-8162027cd068}*SharedItemsImports = 13
@@ -1527,6 +1529,18 @@ Global
 		{1C94168A-3C0D-4C6B-883B-91627D2EF3A1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1C94168A-3C0D-4C6B-883B-91627D2EF3A1}.Release|Win32.ActiveCfg = Release|Any CPU
 		{1C94168A-3C0D-4C6B-883B-91627D2EF3A1}.Release|Win32.Build.0 = Release|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Debug|Win32.Build.0 = Debug|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Release|Win32.ActiveCfg = Release|Any CPU
+		{69CA1F59-5735-403C-8009-2CE282C72DE6}.Release|Win32.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1654,6 +1668,7 @@ Global
 		{7FA381C8-8EBE-4515-969D-01369CC47D0E} = {1AE1AC60-5D2F-4CA7-AE20-888F44551185}
 		{83E4E436-659A-4D82-90DD-0DC67BE38D17} = {E4508D15-6503-4A29-ADC4-27B3A5E99545}
 		{1C94168A-3C0D-4C6B-883B-91627D2EF3A1} = {A7ED9F01-7D78-4381-90A6-D50E51C17250}
+		{69CA1F59-5735-403C-8009-2CE282C72DE6} = {6F473FA6-4F8B-4FBA-AE33-EE5AF997D50C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF877973-604D-4EA7-B5F5-A129961F9EF2}

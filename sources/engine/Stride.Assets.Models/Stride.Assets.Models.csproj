@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\tools\Stride.Importer.Assimp\Stride.Importer.Assimp.vcxproj" PrivateAssets="All" />
     <ProjectReference Include="..\..\tools\Stride.Importer.Common\Stride.Importer.Common.vcxproj" PrivateAssets="All" />
     <ProjectReference Include="..\..\tools\Stride.Importer.FBX\Stride.Importer.FBX.vcxproj" PrivateAssets="All" />
+    <ProjectReference Include="..\..\tools\Stride.Importer.Gltf\Stride.Importer.Gltf.csproj" />
     <ProjectReference Include="..\Stride.Assets\Stride.Assets.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -100,8 +100,8 @@ namespace Stride.Assets.Models
             {
                 TimeSpan startTime, endTime;
                 GetAnimationDuration(localPath, importParameters.Logger, importParameters, out startTime, out endTime);
-
-                ImportAnimation(rawAssetReferences, localPath, entityInfo.AnimationNodes, isImportingModel, skeletonAsset, startTime, endTime);
+                bool isGltfAsset = localPath.GetFileExtension().ToLower().Contains("glb") || localPath.GetFileExtension().ToLower().Contains("gltf");
+                ImportAnimation(rawAssetReferences, localPath, entityInfo.AnimationNodes, isImportingModel, isGltfAsset, skeletonAsset, startTime, endTime);
             }
 
             // 4. Materials
@@ -141,20 +141,44 @@ namespace Stride.Assets.Models
             return assetItem;
         }
 
-        private static void ImportAnimation(List<AssetItem> assetReferences, UFile localPath, List<string> animationNodes, bool shouldPostFixName, AssetItem skeletonAsset, TimeSpan animationStartTime, TimeSpan animationEndTime)
+        private static void ImportAnimation(List<AssetItem> assetReferences, UFile localPath, List<string> animationNodes, bool shouldPostFixName, bool isGltfAsset, AssetItem skeletonAsset, TimeSpan animationStartTime, TimeSpan animationEndTime)
         {
             if (animationNodes != null && animationNodes.Count > 0)
             {
-                var assetSource = localPath;
+                if (isGltfAsset)
+                {
+                    // Animation nodes in GLTF correspond to animations inside the gltf files, not the bone names in fbx files.
+                    foreach (var anim in animationNodes)
+                    {
+                        var assetSource = localPath;
 
-                var asset = new AnimationAsset { Source = assetSource, AnimationTimeMaximum = animationEndTime, AnimationTimeMinimum = animationStartTime };
-                var animUrl = localPath.GetFileNameWithoutExtension() + (shouldPostFixName ? " Animation" : "");
+                        var asset = new AnimationAsset { Source = assetSource, AnimationTimeMaximum = animationEndTime, AnimationTimeMinimum = animationStartTime };
+                        string animUrl = localPath.GetFileNameWithoutExtension() + (shouldPostFixName ? " Animation " + anim : "");
 
-                if (skeletonAsset != null)
-                    asset.Skeleton = AttachedReferenceManager.CreateProxyObject<Skeleton>(skeletonAsset.Id, skeletonAsset.Location);
+                        if (skeletonAsset != null)
+                            asset.Skeleton = AttachedReferenceManager.CreateProxyObject<Skeleton>(skeletonAsset.Id, skeletonAsset.Location);
 
-                assetReferences.Add(new AssetItem(animUrl, asset));
+                        assetReferences.Add(new AssetItem(animUrl, asset));
+                    }
+                    
+                }
+                else
+                {
+
+                    var assetSource = localPath;
+
+                    var asset = new AnimationAsset { Source = assetSource, AnimationTimeMaximum = animationEndTime, AnimationTimeMinimum = animationStartTime };
+                    var animUrl = localPath.GetFileNameWithoutExtension() + (shouldPostFixName ? " Animation" : "");
+
+                    if (skeletonAsset != null)
+                        asset.Skeleton = AttachedReferenceManager.CreateProxyObject<Skeleton>(skeletonAsset.Id, skeletonAsset.Location);
+
+                    assetReferences.Add(new AssetItem(animUrl, asset));
+
+                }
             }
+
+
         }
 
         private static void ImportModel(List<AssetItem> assetReferences, UFile assetSource, UFile localPath, EntityInfo entityInfo, bool shouldPostFixName, AssetItem skeletonAsset)
@@ -190,7 +214,7 @@ namespace Stride.Assets.Models
             if (skeletonAsset != null)
                 asset.Skeleton = AttachedReferenceManager.CreateProxyObject<Skeleton>(skeletonAsset.Id, skeletonAsset.Location);
 
-            var modelUrl = new UFile(localPath.GetFileNameWithoutExtension() + (shouldPostFixName?" Model": ""));
+            var modelUrl = new UFile(localPath.GetFileNameWithoutExtension() + (shouldPostFixName ? " Model" : ""));
             var assetItem = new AssetItem(modelUrl, asset);
             assetReferences.Add(assetItem);
         }
@@ -269,7 +293,7 @@ namespace Stride.Assets.Models
             //        var isTransparent = false;
             //        if (material.Parameters.ContainsKey(MaterialParameters.HasTransparency))
             //            isTransparent = (bool)material.Parameters[MaterialParameters.HasTransparency];
-                    
+
             //        if (!isTransparent)
             //        {
             //            // remove the diffuse node
